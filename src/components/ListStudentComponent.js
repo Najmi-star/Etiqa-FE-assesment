@@ -34,7 +34,15 @@ class ListStudentComponent extends Component {
                 <h2 className="text-center">Student List</h2>
                 <div className="row" style={{ width: 'fit-content' }}>
                     <button className="btn btn-primary"
-                    onClick={ () => this.addStudent()}>Add New Student</button>
+                        onClick={() => this.addStudent()}>Add New Student</button>
+                </div>
+                <div
+                    style={{
+                        marginTop: '13px',
+                        marginLeft: '-13px',
+                    }}>
+                    <input style={{ width: 'auto' }}
+                        placeholder="Search ID here" name="search" className="form-control" />
                 </div>
                 <br></br>
                 <div className="row">
@@ -55,9 +63,9 @@ class ListStudentComponent extends Component {
                                         student =>
                                             <tr key={student.id}>
                                                 <td>{student.id ?
-                                                    <button 
-                                                    onClick={ () => this.viewStudent(student.id)}
-                                                    style={{ border: 'none', color: 'blue', background:'none' }}>
+                                                    <button
+                                                        onClick={() => this.viewStudent(student.id)}
+                                                        style={{ border: 'none', color: 'blue', background: 'none' }}>
                                                         {student.id}</button> : emptyData} </td>
                                                 <td> {student.name || emptyData}</td>
                                                 <td> {student.course || emptyData}</td>
