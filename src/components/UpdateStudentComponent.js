@@ -6,53 +6,46 @@ class UpdateStudentComponent extends Component {
         super(props)
 
         this.state = {
-                id: '',
-                name: '',
-                course: '',
-                email: ''
+            students: {}
         }
+
         this.nameFormChange = this.nameFormChange.bind(this);
-        this.idFormChange = this.idFormChange.bind(this);
         this.courseFormChange = this.courseFormChange.bind(this);
         this.emailFormChange = this.emailFormChange.bind(this);
-        this.updateStudent = this.updateStudent.bind(this);
     }
 
     componentDidMount() {
         console.log('student obj =>', singleStudent)
-        this.setState({id: singleStudent.id, 
-            name : singleStudent.name,
-            course: singleStudent.course,
-            email: singleStudent.email
-        })
+        this.setState({students : singleStudent})
     }
 
-    updateStudent = (e) => {
-        e.preventDefault();
-        //set a JSON to be send to BE & then redirect to main page
-        let student = {
-            id: this.state.id, name: this.state.name, course: this.state.course,
-            email: this.state.email
-        };
-        console.log('student => ' + JSON.stringify(student));
-
-        this.props.history.push('/student')
+    updateStudent(id) {
+        //should call BE with pass an id to update the user
+        this.props.history.push(`/student`);
     }
 
     nameFormChange = (event) => {
-        this.setState({ name: event.target.value });
-    }
-
-    idFormChange = (event) => {
-        this.setState({ id: event.target.value });
-    }
-
-    emailFormChange = (event) => {
-        this.setState({ email: event.target.value });
+        this.setState({ students : {
+            student : {
+                name : event.target.value
+            }
+        } });
     }
 
     courseFormChange = (event) => {
-        this.setState({ course: event.target.value });
+        this.setState({ students : {
+            student : {
+                course : event.target.value
+            }
+        } });
+    }
+
+    emailFormChange = (event) => {
+        this.setState({ students : {
+            student : {
+                email : event.target.value
+            }
+        } });
     }
 
     cancel() {
@@ -60,43 +53,46 @@ class UpdateStudentComponent extends Component {
     }
 
     render() {
-        const { id, name, email, course} = this.state
+        const { student } = this.state.students
         return (
             console.log('state', this.state),
             console.log('props', this.props),
             <div>
                 <br></br>
+                {
+                    this.state.students.hasOwnProperty('student') ? 
+                    (
                         <div className="container">
                         <div className="row">
                             <div className="card col-md-6 offset-md-3 offset-md-3">
                                 {
-                                    'Update Student'
+                                    'Student : ' + (student.id ? student.id : '')
                                 }
                                 <div className="card-body">
                                     <form>
                                         <div className="form-group">
                                             <label> Student ID: </label>
                                             <input placeholder="Student ID" name="studentID" className="form-control"
-                                                value={this.state.hasOwnProperty('id') ? id : ''} onChange={this.idFormChange} />
+                                                value={student.id || ''} disabled={true}/>
                                         </div>
                                         <div className="form-group">
                                             <label> Name: </label>
                                             <input placeholder="Name" name="name" className="form-control"
-                                                value={this.state.hasOwnProperty('name') ? name : ''} onChange={this.nameFormChange} />
+                                                value={student.name  || ''} onChange={this.nameFormChange} disabled={false} required/>
                                         </div>
                                         <div className="form-group">
                                             <label> Course Id: </label>
                                             <input placeholder="Course ID" name="course" className="form-control"
-                                                value={this.state.hasOwnProperty('course') ? course : ''} onChange={this.courseFormChange} />
+                                                value={student.course  || ''} onChange={this.courseFormChange} disabled={false} required/>
                                         </div>
                                         <div className="form-group">
                                             <label> Email Address: </label>
                                             <input placeholder="Email Address" name="email" className="form-control"
-                                                value={this.state.hasOwnProperty('email') ? email : ''} onChange={this.emailFormChange} />
+                                                value={student.email  || ''} onChange={this.emailFormChange} disabled={false} required/>
                                         </div>
     
                                         <div style={{marginTop: '10px'}}>
-                                            <button className="btn btn-success" onClick={this.updateStudent(id)}>Update</button>
+                                            <button className="btn btn-success" onClick={ () => this.updateStudent(student.id)}>Update</button>
                                             <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
                                         </div>
                                     </form>
@@ -105,6 +101,8 @@ class UpdateStudentComponent extends Component {
                         </div>
     
                     </div>
+                    ) : null
+                }
             </div>
         )
     }

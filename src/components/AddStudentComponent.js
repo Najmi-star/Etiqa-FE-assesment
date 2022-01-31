@@ -67,22 +67,22 @@ class AddStudentComponent extends Component {
                                     <div className="form-group">
                                         <label> Student ID: </label>
                                         <input placeholder="Student ID" name="studentID" className="form-control"
-                                            value={this.state.id} onChange={this.idFormChange} />
+                                            value={this.state.id} onChange={this.idFormChange} required/>
                                     </div>
                                     <div className="form-group">
                                         <label> Name: </label>
                                         <input placeholder="Name" name="name" className="form-control"
-                                            value={this.state.name} onChange={this.nameFormChange} />
+                                            value={this.state.name} onChange={this.nameFormChange} required/>
                                     </div>
                                     <div className="form-group">
                                         <label> Course Id: </label>
                                         <input placeholder="Course ID" name="course" className="form-control"
-                                            value={this.state.course} onChange={this.courseFormChange} />
+                                            value={this.state.course} onChange={this.courseFormChange} required/>
                                     </div>
                                     <div className="form-group">
                                         <label> Email Address: </label>
                                         <input placeholder="Email Address" name="email" className="form-control"
-                                            value={this.state.email} onChange={this.emailFormChange} />
+                                            value={this.state.email} onChange={this.emailFormChange} required/>
                                     </div>
 
                                     <div style={{marginTop: '10px'}}>
